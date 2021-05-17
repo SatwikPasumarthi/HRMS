@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>LTA</title>
+  <style>
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: visible;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+
+    .abc {
+      border-style: groove;
+    }
+  </style>
+
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="people-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Employee </span>
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/add_employee" class="collapse__sublink">Add</a>
+              <a href="/view_employee" class="collapse__sublink">View </a>
+              <a href="/edit_employee" class="collapse__sublink">Manage </a>
+
+            </ul>
+          </div>
+
+
+          <a href="/admin_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_mc" class="collapse__sublink">Medical</a>
+              <a href="/admin_LTA" class="collapse__sublink">LTA</a>
+              <a href="/admin_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+          <a href="/admin_attendance" class="nav__link">
+            <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+          <a href="/admin_leaves" class="nav__link">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_performance" class="collapse__sublink">Add</a>
+              <a href="/view_performance" class="collapse__sublink">View</a>
+            </ul>
+          </div>
+
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="container-fluid mainForm" style="margin-top: 30px;">
+
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h3>LTA</h3><br><br>
+        <form action="/admin_LTA" method="post" >
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+                  </div>
+                </div>
+
+
+            <div class="col-md-12" style="">
+
+              <input type="submit" id="btn" name="submitBtn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+              &nbsp;&nbsp;
+            </div>
+          </div>
+        </div>
+        </div>
+        </form>
+
+    <%if(foundItems.length === 0){%>
+
+      <br>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <br>
+
+
+            <form action="" method="post" enctype="multipart/form-data" role="form">
+              <div class="row">
+                <div class="col-md-5">
+                      <div class="form-group">
+                        <label for="empname">Employee Name</label>
+                        <input type="text" class="form-control" id="empname" name="empname" value="<%= employee.employee_first_name + " "+ employee.employee_last_name %>" required="">
+                        <span id="available"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-5">
+                      <div class="form-group">
+                        <label for="email">Employee Email</label>
+                        <input type="email" class="form-control" id="email" name="email" value="<%= employee.employee_email %>" required="">
+                        <span id="available"></span>
+                      </div>
+                    </div>
+                    </div>
+                    <div class="row" >
+                      <div class="col-md-5">
+                        <label for="Department">Department</label>
+                        <input type="text" name="Department" class="form-control" value="<%= employee.employee_department %>" required="">
+                      </div>
+                      <div class="col-md-5">
+                        <label for="Designation">Designation</label>
+                        <input type="text" name="Designation" class="form-control" value="<%= employee.employee_designation %>" required="">
+                      </div>
+                    </div>
+                    </form>
+                    <%})%>
+              <%}%>
+
+
+
+                    <form class="" action="/admin_LTA?_method=put" method="post">
+
+                          <div class="row">
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <label for="email">Email ID</label>
+                                <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+                              </div>
+                            </div>
+                            <div class="col-md-5">
+                              <div class="form-group">
+                                <label for="currency">Currency</label>
+                                <select class="form-control" id="currency" name="currency">
+                                  <option value="select"  selected="selected">Select Currency</option>
+                                  <option value="USD">United States Dollars</option>
+                                  <option value="EUR">Euro</option>
+                                  <option value="GBP">United Kingdom Pounds</option>
+                                  <option value="DZD">Algeria Dinars</option>
+                                  <option value="ARP">Argentina Pesos</option>
+                                  <option value="AUD">Australia Dollars</option>
+                                  <option value="ATS">Austria Schillings</option>
+                                  <option value="BSD">Bahamas Dollars</option>
+                                  <option value="BBD">Barbados Dollars</option>
+                                  <option value="BEF">Belgium Francs</option>
+                                  <option value="BMD">Bermuda Dollars</option>
+                                  <option value="BRR">Brazil Real</option>
+                                  <option value="BGL">Bulgaria Lev</option>
+                                  <option value="CAD">Canada Dollars</option>
+                                  <option value="CLP">Chile Pesos</option>
+                                  <option value="CNY">China Yuan Renmimbi</option>
+                                  <option value="CYP">Cyprus Pounds</option>
+                                  <option value="CSK">Czech Republic Koruna</option>
+                                  <option value="DKK">Denmark Kroner</option>
+                                  <option value="NLG">Dutch Guilders</option>
+                                  <option value="XCD">Eastern Caribbean Dollars</option>
+                                  <option value="EGP">Egypt Pounds</option>
+                                  <option value="FJD">Fiji Dollars</option>
+                                  <option value="FIM">Finland Markka</option>
+                                  <option value="FRF">France Francs</option>
+                                  <option value="DEM">Germany Deutsche Marks</option>
+                                  <option value="XAU">Gold Ounces</option>
+                                  <option value="GRD">Greece Drachmas</option>
+                                  <option value="HKD">Hong Kong Dollars</option>
+                                  <option value="HUF">Hungary Forint</option>
+                                  <option value="ISK">Iceland Krona</option>
+                                  <option value="INR">India Rupees</option>
+                                  <option value="IDR">Indonesia Rupiah</option>
+                                  <option value="IEP">Ireland Punt</option>
+                                  <option value="ILS">Israel New Shekels</option>
+                                  <option value="ITL">Italy Lira</option>
+                                  <option value="JMD">Jamaica Dollars</option>
+                                  <option value="JPY">Japan Yen</option>
+                                  <option value="JOD">Jordan Dinar</option>
+                                  <option value="KRW">Korea (South) Won</option>
+                                  <option value="LBP">Lebanon Pounds</option>
+                                  <option value="LUF">Luxembourg Francs</option>
+                                  <option value="MYR">Malaysia Ringgit</option>
+                                  <option value="MXP">Mexico Pesos</option>
+                                  <option value="NLG">Netherlands Guilders</option>
+                                  <option value="NZD">New Zealand Dollars</option>
+                                  <option value="NOK">Norway Kroner</option>
+                                  <option value="PKR">Pakistan Rupees</option>
+                                  <option value="XPD">Palladium Ounces</option>
+                                  <option value="PHP">Philippines Pesos</option>
+                                  <option value="XPT">Platinum Ounces</option>
+                                </select>
+                            </div>
+                          </div>
+
+
+
+                      </div>
+
+
+
+                    <div class="row">
+                      <div class="col-lg-5">
+                        <label for="Type">Reimbursement Type</label>
+                        <input type="text" name="reinbursement_type" class="form-control" placeholder="Type">
+                      </div>
+                      <div class="col-lg-5">
+                        <label for="date">Submission Date</label>
+                        <input type="date" name="submission_date" class="form-control" placeholder="mm/dd/yyyy">
+                      </div>
+
+                    </div>
+
+
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <label for="Tax">Taxable or Not</label>
+                          <input type="text" name="taxable_or_not" class="form-control" placeholder="Yes/No">
+                        </div>
+                        <div class="col-lg-5">
+                          <label for="date">Leave Availed From</label>
+                          <input type="date" name="leave_availed_from" class="form-control" placeholder="mm/dd/yyyy">
+                        </div>
+                      </div>
+
+
+
+
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <label for="date">Leave Availed Until</label>
+                          <input type="date" name="leave_availed_until" class="form-control" placeholder="mm/dd/yyyy">
+                        </div>
+                        <div class="col-lg-5">
+                          <label for="Amount">Claim Amount</label>
+                          <input type="number" name="claim_amount" class="form-control" placeholder="Enter Amount">
+                        </div>
+                      </div>
+
+
+
+                      <div class="row">
+                        <div class="col-lg-5">
+                          <label for="Type">Remarks</label>
+                          <input type="text" name="remarks" class="form-control" placeholder="Remarks">
+                        </div>
+                      </div>
+
+
+                    <br>
+                <div class="col-md-12" style="">
+
+                  <input type="submit" id="btn" name="btn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+                  &nbsp;&nbsp;
+              </div>
+            </form>
+
+      </div>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>HRMS</title>
+  </head>
+  <body>
+    <form action="/admin_LTA" method="post">
+      <input type="email" name="employee_email" placeholder="Email">
+      <button type="submit" name="button">Submit</button>
+    </form>
+    <%if(foundItems.length === 0){%>
+      <h4>Enter email to get information</h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <h4>Name:</h4>
+        <h4><%= employee.employee_first_name + " "+ employee.employee_last_name %></h4>
+        <h4>Email:</h4>
+        <h4><%= employee.employee_email %></h4>
+        <h4>Department:</h4>
+        <h4><%= employee.employee_department %></h4>
+        <h4>Designation:</h4>
+        <h4><%= employee.employee_designation %></h4>
+        <%})%>
+    <%}%>
+
+    <form action="/admin_LTA?_method=put" method="POST">
+      <input type="email" name="employee_email" placeholder="Email">
+      <input type="text" name="currency" value="" placeholder="Currency">
+      <input type="text" name="reinbursement_type" value="" placeholder="Reimbursement Type">
+      <input type="date" name="submission_date" value="" placeholder="Submission Date">
+      <input type="text" name="taxable_or_not" value="" placeholder="Taxable or Not">
+      <input type="date" name="leave_availed_from" value="" placeholder="Leave Availed From">
+      <input type="date" name="leave_availed_until" value="" placeholder="Leave Availed Until">
+      <input type="number" name="claim_amount" value="" placeholder="Claim Amount">
+      <input type="text" name="remarks" value="" placeholder="Remarks">
+      <button type="submit">Submit</button>
+    </form>
+
+
+
+  </body>
+</html> -->

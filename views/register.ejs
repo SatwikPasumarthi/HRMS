@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Admin Details</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <style media="screen">
+    body{
+      font-family: 'Poppins', sans-serif;
+
+background-color: #ccf2f4;
+      background-image: url('C:/Users/HP/Desktop/EMS-1/images/image3.png');
+      background-repeat: no-repeat;;
+      background-position: center;
+      background-attachment: fixed;
+    }
+  .mainForm{
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+
+    }
+    .btn-file{
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-file input[type=file]{
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+    </style>
+  </head>
+  <body>
+
+    <div class="container-fluid" style="margin-top: 85px;" class="mainForm">
+
+      <div class="row">
+        <div class="col-md-10 offset-md-1">
+              <form action="/register" method="post">
+                <div class="row">
+                  <div class="col-md-8">
+                    <div class="row">
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="FN"><b>Admin Name</b></label>
+                          <input type="text" class="form-control" id="FN" name="admin[admin_name]" placeholder="Name" required="">
+                          <span id="available"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="LN"><b>Company Name</b></label>
+                          <input type="text" class="form-control" id="LN" name="admin[admin_company]" placeholder="Company Name" required="">
+                          <span id="available"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="empname"><b>Father's Name</b></label>
+                          <input type="text" class="form-control" id="empname" name="admin[admin_father_name]" placeholder="Enter Name" required="">
+                          <span id="available"></span>
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="DOB"><b>Date of Birth</b></label>
+                          <input type="date" class="form-control" id="DOB" name="admin[admin_dob]" placeholder="mm/dd/yyyy">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <fieldset class="form-group">
+                          <p><b>Gender</b></p>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="admin[admin_gender]" value="Male"> Male
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="admin[admin_gender]" value="Female"> Female
+                            </label>
+                          </div>
+                          <div class="form-check-inline">
+                            <label class="form-check-label">
+                              <input type="radio" class="form-check-input" name="admin[admin_gender]" value="Other"> Other
+                            </label>
+                          </div>
+                        </fieldset>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="DOJ"><b>Date of Joining</b></label>
+                          <input type="date" class="form-control" id="DOJ" name="admin[admin_doj]" placeholder="mm/dd/yyyy">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="email"><b>Email ID</b></label>
+                          <input type="email" class="form-control" id="email" name="admin[admin_email]" placeholder="Enter Email">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="password"><b>Password</b></label>
+                          <input type="password" class="form-control" id="password" name="admin[admin_password]" placeholder="Enter Password">
+                        </div>
+                      </div>
+                      <div class="col-md-6">
+                        <div class="form-group">
+                          <label for="phn"><b>Phone Number</b></label>
+                          <input type="tel" class="form-control" id="phn" name="admin[admin_phno]" placeholder="Enter Number">
+                        </div>
+                      </div>
+                      <div class="col-md-12">
+                        <div class="form-group">
+                          <label for="address"><b>Permanent Address</b></label>
+                          <textarea class="form-control" id="address" name="admin[admin_address]" rows="4"></textarea>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--display image-->
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-md-12">
+                        <div style="text-align: center;">
+                            <img id="img-upload">
+                            <div id="tem_img">
+                              <img src="Images\avatar_img.png" alt="" width="150px" height="180px">
+                            </div>
+                            <br><br>
+
+                              <span class="input-group-btn">
+                                <span class="btn btn-info btn-file">
+                                  Image(4X6)<input type="file" id="imginp" name="admin[admin_photo]">
+                                </span>
+                              </span>
+
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  <!--designation-->
+                  <div class="col-md-8">
+                    <div class="form-group">
+                      <label for="designation"><b>Designation</b></label>
+                      <select class="form-control" id="designation" name="admin[admin_designation]">
+                        <option>Choose Designation</option>
+                        <option>Trainee</option>
+                        <option>Software Engineer</option>
+                        <option>System Analyst</option>
+                        <option>Project manager</option>
+                        <option>Delivery Head</option>
+                        <option>Business Analyst</option>
+                        <option>Architect</option>
+                        <option>Technical Specialist</option>
+                      </select>
+                    </div>
+                  </div>
+                  <div class="col-md-12" style="">
+                    <input type="submit" id="btn" name="btn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+                    &nbsp;&nbsp;
+                  </div>
+                </div>
+              </form>
+
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
+
+
+<!-- <h1>Register</h1>
+
+<form class="" action="/register" method="post">
+  <input type="file" name="admin[admin_photo]" value="">
+  <input type="text" name="admin[admin_name]" value="" placeholder="Name" required>
+  <input type="text" name="admin[admin_company]" value="" placeholder="Company Name" required>
+  <input type="text" name="admin[admin_father_name]" value="" placeholder="Father Name" required>
+  <input type="date" name="admin[admin_dob]" value="" placeholder="DOB" required>
+  <input type="radio" name="admin[admin_gender]" value="Male"  required>Male
+  <input type="radio" name="admin[admin_gender]" value="Female"  required>Female
+  <input type="radio" name="admin[admin_gender]" value="Other"  required>Other
+  <input type="date" name="admin[admin_doj]" value="" placeholder="DOJ" required>
+  <input type="email" name="admin[admin_email]" value="" placeholder="Email" required>
+  <input type="tel" name="admin[admin_phno]" value="" placeholder="Phone Number" required>
+  <input type="text" name="admin[admin_address]" value="" placeholder="Permanent Address" required>
+  <input type="text" name="admin[admin_designation]" value="" placeholder="Designation" required>
+  <input type="password" name="admin[admin_password]" value="" placeholder="Password" required>
+  <button type="submit" name="button">Register</button>
+</form>
+<a href="/login">Login</a> -->

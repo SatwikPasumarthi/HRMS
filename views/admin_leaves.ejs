@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>Leaves</title>
+  <style>
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: visible;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+
+    .abc {
+      border-style: groove;
+    }
+  </style>
+
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="people-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Employee </span>
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/add_employee" class="collapse__sublink">Add</a>
+              <a href="/view_employee" class="collapse__sublink">View </a>
+              <a href="/edit_employee" class="collapse__sublink">Manage </a>
+
+            </ul>
+          </div>
+
+
+          <a href="/admin_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_mc" class="collapse__sublink">Medical</a>
+              <a href="/admin_LTA" class="collapse__sublink">LTA</a>
+              <a href="/admin_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+          <a href="/admin_attendance" class="nav__link">
+            <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+          <a href="/admin_leaves" class="nav__link">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_performance" class="collapse__sublink">Add</a>
+              <a href="/view_performance" class="collapse__sublink">View</a>
+            </ul>
+          </div>
+
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+
+
+
+  <div class="container">
+    <%if(leave_foundItems.length === 0){%>
+      <h3>No Information</h3>
+    <%} else{%>
+      <%leave_foundItems.forEach(function(employee){%>
+    <div class="card" style="align-items: center;">
+      <div class="imgBx">
+        <img src="images/avatar_img.png" style="width: 200px; height: 200px; margin: 0 auto; align-items: center;;">
+      </div>
+      <br>
+      <div class="content">
+
+
+
+        <h1><%= employee.employee_name %></h1>
+        <p><%= employee.employee_email %></p>
+        <p>From date: <%= employee.fromdate %></p>
+        <p style="text-align: center;">To</p>
+        <p>To date: <%= employee.todate %></p>
+
+
+        <!-- <p><span style="text-align: left;"></span> <%= employee.fromdate %><span style="font-weight:bold">To</span> <span style="text-align: right;"><%= employee.todate %></span></p> -->
+        <p>Reason: <%= employee.reason %></p>
+        <form class="" action="/admin_leaves" method="post">
+          <input type="radio" name="confirmation" value="Approved"><span>&nbspApproved</span>
+          <input type="radio" name="confirmation" value="Rejected"><span>&nbspRejected</span>
+          <br><br>
+          <input type="submit" id="btn"  name="submitBtn" value="Submit" class="btn btn-primary" style="width: 9.375rem; border-radius: 10px; margin: 0 0 10px 0">
+          &nbsp;&nbsp;
+          <br>
+        </form>
+
+      </div>
+    </div>
+    <br><br>
+  </div>
+  <%})%>
+<%}%>
+
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+
+  <script src="assets/js/main.js"></script>
+</body>
+
+</html>

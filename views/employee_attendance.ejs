@@ -1,0 +1,224 @@
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title></title>
+  </head>
+  <body>
+    <%var date = new Date()%>
+    <%var y = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);%>
+    <%var m = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);%>
+    <h4><%= y %></h4>
+    <h4><%= m %></h4>
+    <%if(foundItems.length === 0){%>
+      <h4>Enter email to get information</h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+
+        <h4><%= employee.date %></h4>
+        <h4><%= employee.atten %></h4>
+
+
+
+        <%})%>
+<%}%>
+
+  </body>
+</html> -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>Attendance</title>
+  <style>
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: visible;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+
+    .abc {
+      border-style: groove;
+    }
+  </style>
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/employee_mc" class="collapse__sublink">Medical</a>
+              <a href="/employee_LTA" class="collapse__sublink">LTA</a>
+              <a href="/employee_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+
+
+          <a href="/employee_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+
+          <a href="/employee_attendance" class="nav__link">
+          <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/leave_status" class="collapse__sublink">Leave Status</a>
+              <a href="/request_leave" class="collapse__sublink">Request Leave</a>
+            </ul>
+          </div>
+          <a href="/employee_performance" class="nav__link">
+            <ion-icon name="laptop-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+          </a>
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="container mainForm" >
+    <h2>Attendance</h2>
+
+    <div class="card-body">
+
+
+      <form action="index.html" method="post" enctype="multipart/form-data" role="form">
+        <div class="row">
+          <div class="col-md-8">
+
+            <div class="row">
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="FN">Month</label>
+                  <div class="card">
+                    <div class="card-body"><%= m %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="FN">Year</label>
+                  <div class="card">
+                    <div class="card-body"><%= y %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <%if(foundItems.length === 0){%>
+                <br>
+              <%} else{%>
+                <%foundItems.forEach(function(employee){%>
+                  <br>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="FN">Date</label>
+                      <div class="card">
+                        <div class="card-body"><%= employee.date %></div>
+                      </div>
+                      <span id="available"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-6">
+                    <div class="form-group">
+                      <label for="FN">Attendance</label>
+                      <div class="card">
+                        <div class="card-body"><%= employee.atten %></div>
+                      </div>
+                      <span id="available"></span>
+                    </div>
+                  </div>
+                  <br><br>
+
+                  <%})%>
+          <%}%>
+
+
+
+
+            </div>
+
+    </div>
+    </form>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

@@ -1,0 +1,114 @@
+body {
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+  background-color: #ccf2f4;
+}
+#hero .animated {
+  animation: up-down 2s ease-in-out infinite alternate-reverse both;
+}
+@-webkit-keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes up-down {
+  0% {
+    transform: translateY(10px);
+  }
+  100% {
+    transform: translateY(-10px);
+  }
+}
+#title {
+  background-color: #ccf2f4;
+}
+h1 {
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+  font-size: 3rem;
+  line-height: 1.3;
+}
+p {
+  font-family: "Poppins", sans-serif;
+  color: #2f4f4f;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+.container-fluid {
+  padding: 3% 12%;
+}
+/* navbar */
+.navbar {
+  padding: 0 0 4.5rem;
+}
+.nav-item {
+  padding: 0 0.75rem;
+}
+/* SignIN and SingUP Buttons */
+.signButtons {
+  margin: 9% 7% 9% 0;
+}
+/* =============ABOUT SECTION============== */
+#About {
+  padding: 80px;
+
+  background-color: #ccf2f4;
+}
+
+.backEnd {
+  padding-top: 54px;
+}
+.TechnologyUsed {
+  background-color: #ccf2f4;
+  padding: 0 5rem 2.5rem;
+}
+.techimgs {
+  padding: 1.875rem 0;
+  width: 6.375rem;
+}
+.techimgs:hover {
+  width: 7.5rem;
+}
+/* ============FEATURES============== */
+#Features {
+  background-color: #f7f6e7;
+  padding: 2% 12%;
+}
+.feature-box {
+  text-align: center;
+  padding: 5%;
+}
+.feature-titles {
+  font-weight: 700;
+}
+.icon {
+  color: #1687a7;
+  margin-bottom: 1.2rem;
+}
+.icon:hover {
+  color: #03506f;
+  font-size: 7em;
+}
+/* ========CONTACT US========== */
+.ContactUs {
+  background-color: #f7f6e7;
+  text-align: center;
+  padding: 6%;
+}
+.Contacticon {
+  color: #1687a7;
+  margin-bottom: 1.2rem;
+}
+.Contacticon:hover {
+  color: #03506f;
+  font-size: 5em;
+}
+.footer {
+  text-align: center;
+  background-color: #ccf2f4;
+  padding: 10px;
+}

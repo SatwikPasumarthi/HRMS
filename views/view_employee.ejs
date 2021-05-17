@@ -1,0 +1,361 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>View Employee</title>
+  <style>
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: visible;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+
+    .abc {
+      border-style: groove;
+    }
+  </style>
+
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="people-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Employee </span>
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/add_employee" class="collapse__sublink">Add</a>
+              <a href="/view_employee" class="collapse__sublink">View </a>
+              <a href="/edit_employee" class="collapse__sublink">Manage </a>
+
+            </ul>
+          </div>
+
+
+          <a href="/admin_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_mc" class="collapse__sublink">Medical</a>
+              <a href="/admin_LTA" class="collapse__sublink">LTA</a>
+              <a href="/admin_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+          <a href="/admin_attendance" class="nav__link">
+            <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+          <a href="/admin_leaves" class="nav__link">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_performance" class="collapse__sublink">Add</a>
+              <a href="/view_performance" class="collapse__sublink">View</a>
+            </ul>
+          </div>
+
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="container mainForm" >
+    <h2>View Employee Details</h2>
+    <form action="/view_employee" method="post" >
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="email">Email ID</label>
+                <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+              </div>
+            </div>
+
+
+        <div class="col-md-12" style="">
+
+          <input type="submit" id="btn" name="submitBtn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+          &nbsp;&nbsp;
+        </div>
+      </div>
+    </div>
+    </div>
+    </form>
+    <div class="card-body" >
+      <form action="index.html" method="post" enctype="multipart/form-data" role="form">
+        <div class="row">
+          <div class="col-md-8">
+            <div class="row">
+
+
+              <%if(foundItems.length === 0){%>
+              <%} else{%>
+                <%foundItems.forEach(function(employee){%>
+                  <!-- <%= employee.employee_photo %> -->
+                  <div class="col-md-12">
+                    <div style="text-align: center;">
+                        <img id="img-upload">
+                        <div id="tem_img">
+                          <img src="Images\avatar_img.png" alt="" width="150px" height="180px">
+                        </div>
+                        <br><br>
+
+                    </div>
+                  </div>
+
+
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="FN">Employee Name</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_first_name + " "+ employee.employee_last_name %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Company Name</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_company %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Father Name</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_fathers_name %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">DOB</label>
+                  <div class="card">
+                    <%var mon1 = employee.employee_dob.getMonth()+1%>
+                    <%var dob = employee.employee_dob.getDate() + "-" + mon1 + "-" + employee.employee_dob.getFullYear()%>
+                    <div class="card-body"><%= dob %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Date of Joining</label>
+                  <div class="card">
+                    <%var mon2= employee.employee_doj.getMonth()+1%>
+                    <%var doj = employee.employee_doj.getDate() + "-" + mon2 + "-" + employee.employee_doj.getFullYear()%>
+                    <div class="card-body"><%= doj %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Gender</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_gender %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="LN">Email</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_email %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Phone Number </label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_phno_1 %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+
+              <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Salary</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_salary %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="LN">Designation</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_designation %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <label for="LN">Address</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_address %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <%})%>
+
+            <%}%>
+
+
+
+
+
+
+
+
+
+
+
+            </div>
+          </div>
+        </div>
+    </div>
+    </form>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>HRMS</title>
+  </head>
+  <body>
+    <form action="/view_employee" method="post">
+      <input type="email" name="employee_email" placeholder="Email">
+      <button type="submit" name="button">Submit</button>
+    </form>
+
+    <%if(foundItems.length === 0){%>
+      <h4>Enter email to get information</h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <%= employee.employee_photo %>
+        <h4>Name:</h4>
+        <h4><%= employee.employee_first_name + " "+ employee.employee_last_name %></h4>
+        <h4>Gender:</h4>
+        <h4><%= employee.employee_gender %></h4>
+        <h4>Father Name:</h4>
+        <h4><%= employee.employee_fathers_name %></h4>
+        <h4>Date of Birth:</h4>
+        <h4><%= employee.employee_dob %></h4>
+        <h4>Date of Joining:</h4>
+        <h4><%= employee.employee_doj %></h4>
+        <h4>Email:</h4>
+        <h4><%= employee.employee_email %></h4>
+        <h4>Address:</h4>
+        <h4><%= employee.employee_address %></h4>
+        <h4>Phone Number:</h4>
+        <h4><%= employee.employee_phno_1 %></h4>
+        <h4>Department:</h4>
+        <h4><%= employee.employee_department %></h4>
+        <h4>Designation:</h4>
+        <h4><%= employee.employee_designation %></h4>
+        <h4>Salary:</h4>
+        <h4><%= employee.employee_salary %></h4>
+      <%})%>
+
+    <%}%>
+
+  </body>
+</html> -->

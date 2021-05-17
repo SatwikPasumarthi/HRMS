@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>Payroll</title>
+  <style media="screen">
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    hr {
+      border: 2px solid black;
+    }
+
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+    }
+    .res-table{
+      overflow-x: auto;
+    }
+  </style>
+
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="people-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Employee </span>
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/add_employee" class="collapse__sublink">Add</a>
+              <a href="/view_employee" class="collapse__sublink">View </a>
+              <a href="/edit_employee" class="collapse__sublink">Manage </a>
+
+            </ul>
+          </div>
+
+
+          <a href="/admin_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_mc" class="collapse__sublink">Medical</a>
+              <a href="/admin_LTA" class="collapse__sublink">LTA</a>
+              <a href="/admin_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+          <a href="/admin_attendance" class="nav__link">
+            <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+          <a href="/admin_leaves" class="nav__link">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_performance" class="collapse__sublink">Add</a>
+              <a href="/view_performance" class="collapse__sublink">View</a>
+            </ul>
+          </div>
+
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="container-fluid mainForm" style="margin-top: 30px;">
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+    <h3>Payroll Form</h3><br><br>
+    <form action="/admin_payroll" method="post" >
+    <div class="row">
+      <div class="col-md-8">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="form-group">
+              <label for="email">Email ID</label>
+              <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+            </div>
+          </div>
+
+
+      <div class="col-md-12" style="">
+
+        <input type="submit" id="btn" name="submitBtn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+        &nbsp;&nbsp;
+      </div>
+    </div>
+  </div>
+  </div>
+  </form>
+
+      <%var date = new Date()%>
+      <%var k = 0%>
+      <%var j = 0%>
+      <%var diffTime = 0%>
+      <%var diffDays = 0%>
+      <%if(foundItems.length === 0){%>
+      <%} else{%>
+        <%foundItems.forEach(function(employee){%>
+            <%if(main_foundItems.length == 0){%>
+            <%} else {%>
+
+              <%main_foundItems.forEach(function(employee_main){%>
+                <%if(employee_main.atten === "Absent"){%>
+                  <%j++%>
+                <%}%>
+                <%})%>
+              <%}%>
+              <%if(paid_foundItems.length == 0){%>
+
+              <%} else {%>
+
+                <%paid_foundItems.forEach(function(employee_paid){%>
+
+                  <%const date1 = employee_paid.fromdate%>
+                  <%const date2 = employee_paid.todate%>
+                  <%console.log(date1)%>
+                  <%console.log(date2)%>
+                  <%diffTime = diffTime + Math.abs(date2 - date1);%>
+                  <%diffDays = diffDays + Math.ceil(diffTime / (1000 * 60 * 60 * 24));%>
+                  <%})%>
+                <%}%>
+
+
+
+
+          <form action="" method="post" enctype="multipart/form-data" role="form">
+            <div class="row">
+              <div class="col-md-12">
+                <div class="row">
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="EN">Employee name </label>
+                      <input type="text" class="form-control" id="EN" name="employee_name" placeholder="Employee Name" value="<%= employee.employee_first_name + " "+ employee.employee_last_name %>" required="">
+                      <span id="available"></span>
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="department">Department</label>
+                      <input type="text" class="form-control" id="department" name="department" placeholder="Enter Department" value="<%= employee.employee_department %>" required="">
+                      <span id="available"></span>
+                    </div>
+                  </div>
+
+                  <%var y = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(date);%>
+                  <%var m = new Intl.DateTimeFormat('en', { month: 'long' }).format(date);%>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="year">Year</label>
+                      <input type="text" class="form-control" id="date" name="year" placeholder="Enter Year" value="<%= y %>">
+                    </div>
+                  </div>
+                  <div class="col-md-3">
+                    <div class="form-group">
+                      <label for="designation">Month</label>
+                      <input type="text" class="form-control" id="date" name="year" placeholder="Enter Year" value="<%= m %>">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+
+
+
+
+            <div class="res-table">
+              <div class="col-md-12">
+                <div class="form-group">
+                  <table class="table table-striped" class="center">
+                    <thead>
+                      <tr>
+                        <th scope="row" class="text-primary">EARNINGS</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">CURRENCY</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">AMOUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Basic</th>
+                        <%var basic = (employee.employee_salary/12)*0.5; %>
+                        <%basic = basic.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0" name="basic_pay" id="broker_fees" value="<%= basic %>">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">House Rent Allowance</th>
+                        <%var house = (employee.employee_salary/12)*0.1; %>
+                        <%house = house.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="house_allowance" id="broker_fees" value="<%= house %>" required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Conveyance Allowance</th>
+                        <%var conveyance = (employee.employee_salary/12)*0.1; %>
+                        <%conveyance = conveyance.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="conveyance_allowance" id="broker_fees" value="<%= conveyance %>" required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Child Education Allowance</th>
+                        <%var child = (employee.employee_salary/12)*0.1; %>
+                        <%child = child.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="child_edu" id="broker_fees" value="<%= child %>" required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Other Allowance</th>
+                        <%var other = (employee.employee_salary/12)*0.2; %>
+                        <%other = other.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="other_allowance" id="broker_fees" value="<%= other %>" required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Gross Earnings</th>
+                        <%var gross = (employee.employee_salary/12); %>
+                        <%gross = gross.toFixed(2)%>
+                        <%var deductions = (employee.employee_salary/12)*0.3; %>
+                        <%deductions = deductions.toFixed(2)%>
+                        <%var lea = (employee.employee_salary/365);%>
+                        <%lea = (lea.toFixed(2))*k%>
+                        <%var mai = (employee.employee_salary/365);%>
+                        <%mai = (mai.toFixed(2))*j%>
+                        <%var diff = (employee.employee_salary/365);%>
+                        <%diff = (diff.toFixed(2))*diffDays%>
+                        <%var gro = gross - deductions%>
+                        <%gro = gro - lea%>
+                        <%gro = gro - mai%>
+                        <%gro = gro + diff%>
+                        <%gro = gro.toFixed(2)%>
+
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="gross_earnings" id="broker_fees" value="<%= gro %>">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <table class="table table-striped" class="center">
+                    <thead>
+                      <tr>
+                        <th scope="row" class="text-primary">DEDUCTIONS</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">CURRENCY</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">(-)AMOUNT</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Income Tax</th>
+                        <%var tax = (employee.employee_salary/12)*0.2; %>
+                        <%tax = tax.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="income_tax" id="broker_fees" value="<%= tax %>" required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">EPF Contribution</th>
+                        <%var epf = (employee.employee_salary/12)*0.1; %>
+                        <%epf = epf.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="epf" id="broker_fees" value="<%= epf %>"  required="required">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Total Deductions</th>
+                        <%var deductions = (employee.employee_salary/12)*0.3; %>
+                        <%deductions = deductions.toFixed(2)%>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="total_deductions" id="broker_fees" value="<%= deductions %>" required="required">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+              <hr>
+              <div class="col-md-12">
+                <div class="form-group">
+                  <table class="table table-striped" class="center">
+                    <thead>
+                      <tr>
+                        <th scope="row" class="text-primary">REIMBURSEMENTS</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">CURRENCY</th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row"></th>
+                        <th scope="row" class="text-primary">AMOUNT</th>
+                      </tr>
+                    </thead>
+
+                    <tbody>
+                      <%if(mc_foundItems.length === 0){%>
+                        <%var mc = 0%>
+                        <%var tc = mc %>
+                        <tr>
+                          <th scope="row">Medical Reimbursement</th>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            INR
+                          </td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td></td>
+                          <td>
+                            <input type="number" min="0"  name="medical_reimbursement" id="broker_fees" value="0" required="required">
+                          </td>
+                        </tr>
+                      <%} else{%>
+                        <%mc_foundItems.forEach(function(employee_mc){%>
+                          <%var mc = employee_mc.reimbursement_amount%>
+                          <%var tc = mc %>
+                      <tr>
+                        <th scope="row">Medical Reimbursement</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="medical_reimbursement" id="broker_fees" value="<%= employee_mc.reimbursement_amount %>" required="required">
+                        </td>
+                      </tr>
+                      <%})%>
+                    <%}%>
+                    <%if(lta_foundItems.length === 0){%>
+                      <%var lta = 0%>
+                      <%tc += lta %>
+                      <tr>
+                        <th scope="row">Leave Travel Allowance</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="text" min="0"  name="Broker_Fees" id="broker_fees" value="0" required="required">
+                        </td>
+                      </tr>
+                    <%} else{%>
+                      <%lta_foundItems.forEach(function(employee_lta){%>
+                        <%var lta = employee_lta.claim_amount%>
+                        <%tc += lta %>
+
+                      <tr>
+                        <th scope="row">Leave Travel Allowance</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="Broker_Fees" id="broker_fees" value="<%= employee_lta.claim_amount %>" required="required">
+                        </td>
+                      </tr>
+                      <%})%>
+                    <%}%>
+                    <%if(ec_foundItems.length === 0){%>
+                      <%var ec = 0%>
+                      <%tc += ec %>
+                      <tr>
+                        <th scope="row">Expense Claims</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="text" min="0"  name="Broker_Fees" id="broker_fees" value="0" required="required">
+                        </td>
+                      </tr>
+                    <%} else{%>
+                      <%ec_foundItems.forEach(function(employee_ec){%>
+                        <%var ec = employee_ec.reimbursement_amount%>
+                        <%tc += ec %>
+                      <tr>
+                        <th scope="row">Expense Claims</th>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          INR
+                        </td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td></td>
+                        <td>
+                          <input type="number" min="0"  name="Broker_Fees" id="broker_fees" value="<%= employee_ec.reimbursement_amount %>" required="required">
+                        </td>
+                      </tr>
+                      <%})%>
+                    <%}%>
+
+
+
+
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+        </div>
+        </form>
+        <%})%>
+        <%}%>
+
+
+    <br><br>
+  </div>
+  </div>
+  </div>
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>

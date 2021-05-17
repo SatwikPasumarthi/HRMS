@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>Expense Claims</title>
+  <style>
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: visible;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+
+    .abc {
+      border-style: groove;
+    }
+  </style>
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/employee_mc" class="collapse__sublink">Medical</a>
+              <a href="/employee_LTA" class="collapse__sublink">LTA</a>
+              <a href="/employee_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+
+
+          <a href="/employee_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+
+          <a href="/employee_attendance" class="nav__link">
+          <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/leave_status" class="collapse__sublink">Leave Status</a>
+              <a href="/request_leave" class="collapse__sublink">Request Leave</a>
+            </ul>
+          </div>
+          <a href="/employee_performance" class="nav__link">
+            <ion-icon name="laptop-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+          </a>
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="card-body mainForm" style="">
+    <h2>Expense Claims</h2>
+    <%if(foundItems.length === 0){%>
+      <h4></h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+    <form action="" method="post" enctype="multipart/form-data" role="form">
+      <div class="row">
+        <div class="col-md-8">
+          <div class="row">
+
+
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="FN">Employee Name</label>
+                <div class="card">
+                  <div class="card-body"><%= employee.employee_first_name + " "+ employee.employee_last_name %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Department</label>
+                <div class="card">
+                  <div class="card-body"><%= employee.employee_department %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Company Name</label>
+                <div class="card">
+                  <div class="card-body"><%= employee.employee_company %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Designation</label>
+                <div class="card">
+                  <div class="card-body"><%= employee.employee_designation %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+                <div class="form-group">
+                  <label for="LN">Email</label>
+                  <div class="card">
+                    <div class="card-body"><%= employee.employee_email %></div>
+                  </div>
+                  <span id="available"></span>
+                </div>
+              </div>
+              <%})%>
+
+    <%}%>
+    <br>
+    <%if(ec_foundItems.length === 0){%>
+    <%} else{%>
+      <%ec_foundItems.forEach(function(employee_ec){%>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Reporting Manager</label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.reporting_manager %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Project Clarification</label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.project_clarification %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Currency</label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.currency %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Reimbursement Type</label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.reimbursement_type %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Cost Center </label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.cost_centre %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group">
+                <label for="LN">Reimbursed Amount</label>
+                <div class="card">
+                  <div class="card-body"><%= employee_ec.reimbursement_amount %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="LN">Remarks</label>
+                <div class="card">
+                  <div class="card-body"> <%= employee_ec.remarks %></div>
+                </div>
+                <span id="available"></span>
+              </div>
+            </div>
+            <%})%>
+
+    <%}%>
+
+
+
+
+
+
+
+
+
+
+          </div>
+        </div>
+      </div>
+  </div>
+  </form>
+
+  </div>
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>HRMS</title>
+  </head>
+  <body>
+    <form class="" action="/employee_ec" method="post">
+      <button type="submit" name="button">Show</button>
+    </form>
+
+    <%if(foundItems.length === 0){%>
+      <h4>Enter email to get information</h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <%= employee.employee_photo %>
+        <h4>Name:</h4>
+        <h4><%= employee.employee_first_name + " "+ employee.employee_last_name %></h4>
+        <h4>Email:</h4>
+        <h4><%= employee.employee_email %></h4>
+        <h4>Department:</h4>
+        <h4><%= employee.employee_department %></h4>
+        <h4>Designation:</h4>
+        <h4><%= employee.employee_designation %></h4>
+      <%})%>
+
+    <%}%>
+
+    <%if(ec_foundItems.length === 0){%>
+      <h4>No Information</h4>
+    <%} else{%>
+      <%ec_foundItems.forEach(function(employee_ec){%>
+      <h4>"Reporting Manager:</h4>
+      <h4><%= employee_ec.reporting_manager %></h4>
+      <h4>Project Clarification:</h4>
+      <h4><%= employee_ec.project_clarification %></h4>
+      <h4>Currency:</h4>
+      <h4><%= employee_ec.currency %></h4>
+      <h4>Reimbursement Type:</h4>
+      <h4><%= employee_ec.reimbursement_type %></h4>
+      <h4>Cost Centre:</h4>
+      <h4><%= employee_ec.cost_centre %></h4>
+      <h4>Reimbursement Amount:</h4>
+      <h4><%= employee_ec.reimbursement_amount %></h4>
+      <h4>Remarks:</h4>
+      <h4><%= employee_ec.remarks %></h4>
+      <%})%>
+
+    <%}%>
+
+  </body>
+</html> -->

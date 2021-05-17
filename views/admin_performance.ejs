@@ -1,0 +1,614 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- ===== CSS ===== -->
+  <link rel="stylesheet" href="assets/css/styles.css">
+
+  <title>Performance</title>
+  <style media="screen">
+    .mainForm {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 500;
+      background-color: white;
+      background-attachment: fixed;
+    }
+
+    .btn-file {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .btn-file input[type=file] {
+      position: absolute;
+      top: 0;
+      right: 0;
+      min-width: 100%;
+      min-height: 100%;
+      font-size: 100px;
+      text-align: right;
+      filter: alpha(opacity=0);
+      opacity: 0;
+      background: white;
+      cursor: pointer;
+      display: block;
+    }
+    table {
+      border-collapse: collapse;
+      width: 100%;
+      text-align: center;
+    }
+    .res-table{
+      overflow-x: auto;
+    }
+  </style>
+
+
+</head>
+
+<body id="body-pd">
+  <div class="l-navbar" id="navbar">
+    <nav class="nav">
+      <div>
+        <div class="nav__brand">
+          <ion-icon name="menu-outline" class="nav__toggle" id="nav-toggle"></ion-icon>
+          <a href="#" class="nav__logo"><img src="images\logo2.png" width="100px" style="margin-left: 20px;" alt=""></a>
+        </div>
+        <div class="nav__list">
+          <a href="/" class="nav__link active">
+            <ion-icon name="home-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Dashboard</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="people-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Employee </span>
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/add_employee" class="collapse__sublink">Add</a>
+              <a href="/view_employee" class="collapse__sublink">View </a>
+              <a href="/edit_employee" class="collapse__sublink">Manage </a>
+
+            </ul>
+          </div>
+
+
+          <a href="/admin_payroll" class="nav__link">
+            <ion-icon name="calculator-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Payroll</span>
+          </a>
+
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Allowances</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_mc" class="collapse__sublink">Medical</a>
+              <a href="/admin_LTA" class="collapse__sublink">LTA</a>
+              <a href="/admin_ec" class="collapse__sublink">Expense</a>
+            </ul>
+          </div>
+          <a href="/admin_attendance" class="nav__link">
+            <ion-icon name="pie-chart-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Attendance</span>
+          </a>
+          <a href="/admin_leaves" class="nav__link">
+            <ion-icon name="bug-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Leave</span>
+          </a>
+          <div class="nav__link dropdown">
+            <ion-icon name="card-outline" class="nav__icon"></ion-icon>
+            <span class="nav__name">Performance</span>
+
+            <ion-icon name="chevron-down-outline" class="collapse__link"></ion-icon>
+
+            <ul class="collapse__menu">
+              <a href="/admin_performance" class="collapse__sublink">Add</a>
+              <a href="/view_performance" class="collapse__sublink">View</a>
+            </ul>
+          </div>
+
+          <form action="/logout?_method=DELETE" method="POST">
+
+            <a href="#" type="submit" class="nav__link">
+                <ion-icon name="log-out-outline" class="nav__icon"></ion-icon>
+              <button type="submit" name="button" class="btn">LogOut</button>
+
+
+            </a>
+          </form>
+
+        </div>
+      </div>
+
+
+    </nav>
+  </div>
+  <div class="container-fluid mainForm" style="margin-top: 30px;">
+
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+        <h3>Performance Sheet</h3><br><br>
+        <form action="/admin_performance" method="post" >
+          <div class="row">
+            <div class="col-md-8">
+              <div class="row">
+                <div class="col-md-12">
+                  <div class="form-group">
+                    <label for="email">Email ID</label>
+                    <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+                  </div>
+                </div>
+
+
+            <div class="col-md-12" style="">
+
+              <input type="submit" id="btn" name="submitBtn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+              &nbsp;&nbsp;
+              <br>
+            </div>
+          </div>
+        </div>
+        </div>
+        </form>
+      </div>
+
+    </div>
+
+
+
+<br>
+    <%if(foundItems.length === 0){%>
+
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <br>
+        <div class="row">
+        <div class="col-md-10 offset-md-1">
+          <form action="" method="post" enctype="multipart/form-data" role="form">
+          <div class="row">
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="empname">Employee Name</label>
+                    <input type="text" class="form-control" id="empname" name="empname" value="<%= employee.employee_first_name + " "+ employee.employee_last_name %>" required="">
+                    <span id="available"></span>
+                  </div>
+                </div>
+                <div class="col-md-8">
+                  <div class="form-group">
+                    <label for="email">Employee Email</label>
+                    <input type="email" class="form-control" id="email" name="email" value="<%= employee.employee_email %>" required="">
+                    <span id="available"></span>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 0.000001px;">
+                  <div class="col-md-6">
+                    <label for="Department">Department</label>
+                    <input type="text" name="Department" class="form-control" value="<%= employee.employee_department %>" required="">
+                  </div>
+                  <div class="col-md-6">
+                    <label for="Designation">Designation</label>
+                    <input type="text" name="Designation" class="form-control" value="<%= employee.employee_designation %>" required="">
+                  </div>
+                </div>
+
+              </div>
+            </div>
+          </div>
+                </form>
+                <%})%>
+              <%}%>
+    <div class="row">
+      <div class="col-md-10 offset-md-1">
+
+            <form action="/admin_performance?_method=put" method="post">
+              <div class="row">
+                        <div class="col-md-8">
+                          <div class="row">
+                            <div class="col-md-12">
+                              <div class="form-group">
+                                <label for="email">Email ID</label>
+                                <input type="email" class="form-control" id="email" name="employee_email" placeholder="Enter Email ID">
+                              </div>
+                            </div>
+
+
+
+                      </div>
+                    </div>
+                    </div>
+              <div class="row">
+                <div class="col-md-8">
+                  <div class="row">
+
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="Role">Role</label>
+                        <input type="text" class="form-control" id="role" name="role" placeholder="Enter Role" required="">
+                        <span id="available"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="Mname">Manager's Name</label>
+                        <input type="text" class="form-control" id="empname" name="manager_name" placeholder="Enter Name" required="">
+                        <span id="available"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="PWO">Project's Worked On</label>
+                        <input type="text" class="form-control" id="PWO" name="project" placeholder="" required="">
+                        <span id="available"></span>
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="review">Review Period</label>
+                        <input type="text" class="form-control" id="review" name="review_period" placeholder="Period">
+                      </div>
+                    </div>
+                    <div class="col-md-6">
+                      <div class="form-group">
+                        <label for="RD">Review Date</label>
+                        <input type="date" class="form-control" id="RD" name="review_date" placeholder="mm/dd/yyyy">
+                      </div>
+                    </div>
+
+                    <div class="res-table" >
+                      <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="row"></th>
+                        <th scope="row">Very Poor</th>
+                        <th scope="row">Not Satisfactory</th>
+                        <th scope="row">Average</th>
+                        <th scope="row">Satisfactory</th>
+                        <th scope="row">Excellent</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Skill Set</th>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Quality of Work</th>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Attitude</th>
+                        <td>  <input type="checkbox" name="attitude" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="attitude" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="attitude" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Efficiency</th>
+                        <td>  <input type="checkbox" name="efficiency" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="efficiency" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="efficiency" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Reliability</th>
+                        <td>  <input type="checkbox" name="reliability" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="reliability" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="reliability" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Teamwork</th>
+                        <td>  <input type="checkbox" name="team_work" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="team_work" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="team_work" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Communication</th>
+                        <td>  <input type="checkbox" name="communication" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="communication" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="communication" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Leadership</th>
+                        <td>  <input type="checkbox" name="leadership" value="Very Poor"></td>
+                        <td>  <input type="checkbox" name="leadership" value="Not Satisfactory"></td>
+                        <td>  <input type="checkbox" name="leadership" value="Average"></td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Excellent">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                    </div>
+                  </div>
+                </div>
+                </div>
+                <div class="col-md-12" style="">
+
+                  <input type="submit" id="btn" name="btn" value="Submit" class="btn btn-primary" style="width: 100px; border-radius: 10px;">
+                  &nbsp;&nbsp;
+                </div>
+              </div>
+            </form>
+        <br><br>
+      </div>
+    </div>
+  </div>
+
+
+
+
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/ionicons@5.1.2/dist/ionicons.js"></script>
+  <script src="assets/js/main.js"></script>
+
+
+
+
+</body>
+
+</html>
+
+<!-- <!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>HRMS</title>
+  </head>
+  <body>
+    <form action="/admin_performance" method="post">
+      <input type="email" name="employee_email" placeholder="Email">
+      <button type="submit" name="button">Submit</button>
+    </form>
+    <%if(foundItems.length === 0){%>
+      <h4>Enter email to get information</h4>
+    <%} else{%>
+      <%foundItems.forEach(function(employee){%>
+        <h4>Name:</h4>
+        <h4><%= employee.employee_first_name + " "+ employee.employee_last_name %></h4>
+        <h4>Email:</h4>
+        <h4><%= employee.employee_email %></h4>
+        <h4>Department:</h4>
+        <h4><%= employee.employee_department %></h4>
+        <h4>Designation:</h4>
+        <h4><%= employee.employee_designation %></h4>
+        <%})%>
+    <%}%>
+    <form class="" action="/admin_performance?_method=put" method="post">
+      <input type="text" name="employee_email" value="" placeholder="Employee Email">
+      <input type="text" name="role" value="" placeholder="Role">
+      <input type="text" name="manager_name" value="" placeholder="Manager Name">
+      <input type="text" name="project" value="" placeholder="Project Worked On">
+      <input type="text" name="review_period" value="" placeholder="Review Period">
+      <input type="date" name="review_date" value="" placeholder="Review Date">
+      <table class="table table-striped">
+                    <thead>
+                      <tr>
+                        <th scope="row"></th>
+                        <th scope="row">Very Poor</th>
+                        <th scope="row">Not Satisfactory</th>
+                        <th scope="row">Average</th>
+                        <th scope="row">Satisfactory</th>
+                        <th scope="row">Excellent</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Skill Set</th>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="skill_set" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Quality of Work</th>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="quality_of_work" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Attitude</th>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="attitude" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Efficiency</th>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="efficiency" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Reliability</th>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="reliability" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Teamwork</th>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="team_work" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Communication</th>
+                        <td>
+                          <input type="checkbox" name="communication" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="communication" value="Excellent">
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Leadership</th>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Very Poor">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Not Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Average">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Satisfactory">
+                        </td>
+                        <td>
+                          <input type="checkbox" name="leadership" value="Excellent">
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <button type="submit" name="button">Submit</button>
+    </form>
+
+  </body>
+</html> -->

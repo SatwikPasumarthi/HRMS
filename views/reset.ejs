@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Reset Password</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  </head>
+  <style media="screen">
+  body{
+    align-items: center;
+  }
+    .row{
+      text-align: left;
+      margin: 0 auto;
+    }
+
+  </style>
+  <body>
+    <br><br><br><br><br>
+    <h1 style="text-align: center;">Reset Password</h1>
+    <br><br><br>
+    <div class="row">
+  <div class="col-md-12">
+
+    <form action="/reset/<%= token %>" style="margin: 0 auto;" method="post" >
+
+      <div class="row">
+
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="email">New Password</label>
+                <input type="password" class="form-control" id="email" name="password" autofocus="autofocus" placeholder="Enter new password">
+              </div>
+            </div>
+            <div class="col-md-12">
+              <div class="form-group">
+                <label for="email">Confirm Password</label>
+                <input type="password" class="form-control" id="email" name="confirm" autofocus="autofocus" placeholder="Confirm new password">
+              </div>
+            </div>
+
+
+        <div class="col-md-12" style="">
+
+          <input type="submit" id="btn" name="submitBtn" value="Update Password" class="btn btn-primary" style="width: 150px; border-radius: 10px;">
+          &nbsp;&nbsp;
+        </div>
+
+      </div>
+
+    </div>
+    </form>
+  </div>
+</div>
+  </body>
+
+</html>
